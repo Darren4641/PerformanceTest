@@ -13,7 +13,7 @@ public class TestController {
 
     @GetMapping("/default")
     public String sendEmailDefault() {
-        for(int i = 0; i <= 100; i++) {
+        for(int i = 0; i <= 10; i++) {
             testService.sendEmailDefault();
         }
        return "Finished";
@@ -21,9 +21,12 @@ public class TestController {
 
     @GetMapping("/thread")
     public String sendEmailThread() throws InterruptedException {
-        for(int i = 0; i <= 100; i++) {
+        for(int i = 0; i <= 10; i++) {
+            System.out.println("i = " + i);
+            //실제로 배치를 돌릴떈 lock을 걸어야함
             testService.sendEmailThread();
         }
+        //testService.sendEmailThread();
         return "Finished";
     }
 }

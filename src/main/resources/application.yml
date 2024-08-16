@@ -9,7 +9,16 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://localhost:27017/test
+      uri: mongodb://localhost:27017/suite?authSource=admin
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus"
 
 server:
   port: 8080
+
+

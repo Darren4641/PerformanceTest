@@ -38,7 +38,7 @@ public class TestService {
         String[] contents = {"Working on project A", "Managing team B", "Designing UI/UX", "Architecting system", "Testing modules"};
         Random random = new Random();
 
-        int size = 100000; // 10만 개의 Member 객체 생성
+        int size = 10000; // 1만 개의 Member 객체 생성
         int numThreads = 10; // 사용할 쓰레드 수
         int batchSize = size / numThreads; // 각 쓰레드가 처리할 작업 수
         ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
@@ -69,7 +69,7 @@ public class TestService {
 
 
     public void sendEmailDefault() {
-        // 1000개씩 끊어서 저장
+        // 10000개씩 끊어서 저장
         List<Member> memberList = memberRepository.findTop1000ByIsSend(false);
         for(Member member : memberList) {
             sendMessageQueue(member);
@@ -78,10 +78,10 @@ public class TestService {
     }
 
     public void sendEmailThread() throws InterruptedException {
-        // 1000개씩 끊어서 저장
+        // 10000개씩 끊어서 저장
         List<Member> memberList = memberRepository.findTop1000ByIsSend(false);
 
-        int numThreads = 10; // 사용할 쓰레드 수
+        int numThreads = 100; // 사용할 쓰레드 수
         int batchSize = memberList.size() / numThreads; // 각 쓰레드가 처리할 작업 수
         ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
         CountDownLatch latch = new CountDownLatch(numThreads);
@@ -89,32 +89,38 @@ public class TestService {
         for(int i = 0; i < numThreads; i++) {
             int start = i * batchSize;
             int end = (i == numThreads - 1) ? memberList.size() : (i + 1) * batchSize;
-            System.out.println("start = " + start);
-            System.out.println("end = " + end);
 
             List<Member> subList = memberList.subList(start, end);
-
-            executorService.submit(new Runnable() { // execute()를 써도 됨
-                @Override
-                public void run() {
-                    for(Member member : subList) {
-                        sendMessageQueue(member);
-                    }
-                    latch.countDown();
+            executorService.submit(() -> {
+                for(Member member : subList) {
+                    sendMessageQueue(member);
                 }
+                latch.countDown();
             });
         }
-        System.out.println("test");
         // 모든 스레드가 완료될 때까지 대기
-        //latch.await();
-        System.out.println("done");
+        latch.await();
 
         // ExecutorService 종료
-        executorService.shutdownNow();
+        executorService.shutdown();
+        System.out.println("service end");
     }
 
+    /*
+    * 10,000건 1,000건씩 끊어서 16개 쓰레드  14.28초
+    * 10,000건 1,000건씩 끊어서 1개 쓰레드 3분 21초
+    *
+    * 10,000건 1,000건씩 끊어서 20개 쓰레드  11.18초
+    * 10,000건 1,000건씩 끊어서 24개 쓰레드  13.09초
+    * 10,000건 1,000건씩 끊어서 24개 쓰레드  11.63초
+    *
+    * 10,000건 16개 쓰레드 15초
+    * 10,000건 1개 쓰레드
 
-    private synchronized void sendMessageQueue(Member member) {
+     */
+
+
+    private void sendMessageQueue(Member member) {
         BulkOperations bulkOps = mongoTemplate.bulkOps(BulkOperations.BulkMode.UNORDERED, Member.class);
         try {
             messageProducer.sendMessage(queueName, gson.toJson(member));
