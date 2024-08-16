@@ -1,0 +1,37 @@
+2024-08-16 08:05:37,281 INFO  Setting of nGrinder local DNS successfully
+2024-08-16 08:05:37,296 INFO  The Grinder version 3.9.1
+2024-08-16 08:05:37,306 INFO  Java(TM) SE Runtime Environment 1.8.0_201-b09: Java HotSpot(TM) 64-Bit Server VM (25.201-b09, mixed mode) on Linux amd64 5.15.49-linuxkit-pr
+2024-08-16 08:05:37,316 INFO  time zone is GMT (+0000)
+2024-08-16 08:05:37,519 INFO  worker process 0 of agent number 0
+2024-08-16 08:05:37,620 INFO  Instrumentation agents: byte code transforming instrumenter for Java
+2024-08-16 08:05:44,932 INFO  registered plug-in net.grinder.plugin.http.HTTPPlugin
+2024-08-16 08:05:45,184 INFO  before process.
+2024-08-16 08:05:45,189 INFO  Running "test10000.groovy" using GroovyScriptEngine running with groovy version: 3.0.5
+2024-08-16 08:05:45,513 INFO  before thread.
+2024-08-16 08:05:45,515 INFO  starting, will do 1 run
+2024-08-16 08:05:45,518 INFO  Start time is 1723795545517 ms since Epoch
+2024-08-16 08:05:45,654 INFO  before. init headers and cookies
+2024-08-16 08:05:47,630 INFO  http://10.0.10.111:8080/default -> 200 , 8 bytes
+2024-08-16 08:05:47,730 INFO  finished 1 run
+2024-08-16 08:05:47,739 INFO  elapsed time is 2222 ms
+2024-08-16 08:05:47,739 INFO  Final statistics for this process:
+2024-08-16 08:05:47,765 INFO  
+             Tests        Errors       Mean Test    Test Time    TPS          Mean         Response     Response     Mean time to Mean time to Mean time to 
+                                       Time (ms)    Standard                  response     bytes per    errors       resolve host establish    first byte   
+                                                    Deviation                 length       second                                 connection                
+                                                    (ms)                                                                                                    
+
+Test 1       1            0            2063.00      0.00         0.45         8.00         3.60         0            0.00         56.00        1890.00       "10.0.10.111"
+
+Totals       1            0            2063.00      0.00         0.45         8.00         3.60         0            0.00         56.00        1890.00      
+
+  Tests resulting in error only contribute to the Errors column.          
+  Statistics for individual tests can be found in the data file, including
+  (possibly incomplete) statistics for erroneous tests. Composite tests   
+  are marked with () and not included in the totals.                      
+
+
+
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
+2024-08-16 08:05:45,205 INFO  validation-0: Starting threads
+2024-08-16 08:05:47,766 INFO  validation-0: Finished

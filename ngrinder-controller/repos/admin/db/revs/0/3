@@ -1,0 +1,43 @@
+PLAIN
+K 11
+targetHosts
+V 0
+
+K 9
+validated
+V 1
+0
+END
+ENDREP
+id: 0-2.0.r3/59
+type: file
+pred: 0-2.0.r2/898
+count: 1
+text: 2 0 826 2112 a3e8d15bd3b204722f3509ae62b30833 1bcaf4ce5b7ae9bdc5f04f6e7b6f0915c2b8796d 2-2/_1
+props: 3 0 46 46 536bcf2a8ad0af566c24c817dde35b51
+cpath: /test10000.groovy
+copyroot: 0 /
+
+PLAIN
+K 14
+.gitconfig.yml
+V 17
+file 0-1.0.r1/346
+K 16
+test10000.groovy
+V 16
+file 0-2.0.r3/59
+END
+ENDREP
+id: 0.0.r3/408
+type: dir
+pred: 0.0.r2/1232
+count: 3
+text: 3 304 91 91 b401bd1b2930c06c63f9b775aed1e984
+cpath: /
+copyroot: 0 /
+
+0-2.0.t2-2 modify-file true true /test10000.groovy
+
+
+408 535

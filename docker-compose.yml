@@ -1,0 +1,40 @@
+version: '3'
+services:
+  activemq:
+    image: rmohr/activemq:5.15.9
+    container_name: activemq
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+    environment:
+      ACTIVEMQ_ADMIN_LOGIN: admin
+      ACTIVEMQ_ADMIN_PASSWORD: admin
+      ACTIVEMQ_CONFIG_MIN_MEMORY: 512
+      ACTIVEMQ_CONFIG_MAX_MEMORY: 2048
+
+  mongo:
+    image: mongo:4.4
+    container_name: mongo
+    environment:
+      MONGO_INITDB_DATABASE: test  # 생성할 데이터베이스 이름 지정
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+
+  controller:
+    image: ngrinder/controller:3.5.5
+    restart: always
+    ports:
+      - "9000:80"
+      - "16001:16001"
+      - "12000-12009:12000-12009"
+    volumes:
+      - ./ngrinder-controller:/opt/ngrinder-controller
+  agent:
+    image: ngrinder/agent:3.5.5
+    restart: always
+    links:
+      - controller
+
+
