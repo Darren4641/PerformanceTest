@@ -9,8 +9,8 @@ services:
     environment:
       ACTIVEMQ_ADMIN_LOGIN: admin
       ACTIVEMQ_ADMIN_PASSWORD: admin
-      ACTIVEMQ_CONFIG_MIN_MEMORY: 512
-      ACTIVEMQ_CONFIG_MAX_MEMORY: 2048
+#      ACTIVEMQ_CONFIG_MIN_MEMORY: 512
+#      ACTIVEMQ_CONFIG_MAX_MEMORY: 2048
 
   prometheus:
     image: prom/prometheus:latest

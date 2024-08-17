@@ -71,17 +71,17 @@ public class TestService {
     public void sendEmailDefault() {
         // 10000개씩 끊어서 저장
         List<Member> memberList = memberRepository.findTop1000ByIsSend(false);
-        for(Member member : memberList) {
-            sendMessageQueue(member);
-        }
 
+        for(Member member : memberList) {
+            sendMessageQueue(member); // 이 메서드 내에 대기 시간이 포함될 가능성이 큼
+        }
     }
 
     public void sendEmailThread() throws InterruptedException {
         // 10000개씩 끊어서 저장
         List<Member> memberList = memberRepository.findTop1000ByIsSend(false);
 
-        int numThreads = 100; // 사용할 쓰레드 수
+        int numThreads = 1000; // 사용할 쓰레드 수
         int batchSize = memberList.size() / numThreads; // 각 쓰레드가 처리할 작업 수
         ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
         CountDownLatch latch = new CountDownLatch(numThreads);
@@ -103,7 +103,7 @@ public class TestService {
 
         // ExecutorService 종료
         executorService.shutdown();
-        System.out.println("service end");
+        //System.out.println("service end");
     }
 
     /*

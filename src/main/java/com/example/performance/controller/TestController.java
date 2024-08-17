@@ -22,7 +22,7 @@ public class TestController {
     @GetMapping("/thread")
     public String sendEmailThread() throws InterruptedException {
         for(int i = 0; i <= 10; i++) {
-            System.out.println("i = " + i);
+            //System.out.println("i = " + i);
             //실제로 배치를 돌릴떈 lock을 걸어야함
             testService.sendEmailThread();
         }
